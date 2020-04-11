@@ -11,7 +11,6 @@ from app.AccountManagment import validUsernameChar, get_database
 from app.FileUploader import UPLOAD_FOLDER
 from app.S3Helper import get_file_path_by_key, store_file
 from app.api.HttpResponse import http_response
-from app.opencv import Opencv
 
 
 @webapp.route('/api/register', methods=['POST'])

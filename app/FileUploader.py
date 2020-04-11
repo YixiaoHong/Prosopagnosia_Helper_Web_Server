@@ -6,7 +6,6 @@ from flask import request, redirect, url_for, send_from_directory, render_templa
 from werkzeug.utils import secure_filename
 from app import webapp
 from app.S3Helper import store_file, get_file_path_by_key, create_presigned_url_expanded, delete_file
-from app.opencv import Opencv
 from app.sql.config.DbConfig import db_config
 import boto3
 
