@@ -51,9 +51,9 @@
 				<nav id="nav">
 					<ul>
 						<li><a href="/"><span class="icon fa-home"></span></a></li>
-                        <li><a href="/file_management"><span class="icon fa-photo"></span></a></li>
+                        <li><a href="/file_management"><span class="icon fa-database"></span></a></li>
 						<li><a href="/upload_management" class="active"><span class="icon fa-upload"></span></a></li>
-                        <li><a href="/process_image"><span class="icon fa-user"></span></a></li>
+                        <li><a href="/process_image"><span class="icon fa-camera"></span></a></li>
 					</ul>
 				</nav>
 
@@ -75,7 +75,8 @@
                             <h4>The Max size is 5MB </h4>
                             <h3 class="error" >{{error_msg if error_msg != None}}</h3>
                             <!-- Trigger/Open The Modal -->
-                            <button id="myBtn">Upload New Photo</button>
+                            <button id="myBtn">Upload New Reference Face</button>
+                            <h3 class="info" >Please upload a portrait of a person and add a name tag</h3>
 
                             <!-- The Modal -->
                             <div id="myModal" class="modal">
