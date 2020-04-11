@@ -61,6 +61,27 @@ def upload_management():
         return redirect(url_for('user_login'))
 
 
+
+@webapp.route('/process_image')
+def process_image():
+    '''
+    Description:
+
+    This function runs when process_image page url'/process_image' is called, and redirect user to
+    process_image page only if all session condition requirements (as mentioned in go_to_main_page) are satisfied.
+    Otherwise the user will then be directed to login page and authenticated and username information in session will
+    be cleared.
+
+    :return: process_image.html or login_index.html
+    '''
+    if ('authenticated' in session) and ('username' in session):
+        #check if the cookie includes username and authenticated flag
+        if session['authenticated'] == True:
+            return render_template("process_image.html")
+    else:
+        return redirect(url_for('user_login'))
+
+
 @webapp.route('/load-balancer-ping')
 def ping():
     return http_response(200, "Hello World! :)")

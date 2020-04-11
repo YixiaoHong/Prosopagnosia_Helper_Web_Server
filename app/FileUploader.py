@@ -12,6 +12,9 @@ import boto3
 
 
 # The function used to establish connection to sql database
+from app.util.AWSHelper import compare_faces
+
+
 def connect_to_database():
     return mysql.connector.connect(user=db_config['user'],password=db_config['password'],host=db_config['host'],database=db_config['database'],use_pure=True)
 
@@ -91,6 +94,53 @@ def delete_image():
     else:
         session['info'] = "File deleted!"
     return redirect(url_for('file_management'))
+
+#after user click the upload button
+@webapp.route('/which_face', methods=['POST'])
+def which_face():
+    try:
+        if request.method == 'POST':
+            img_file = request.files['img']
+
+            # check if the post request has the file part
+            if 'img' not in request.files:
+                raise Exception("No file upload in the request!")
+
+            # test if file too large:
+
+            # if user does not select file, browser also
+
+            # submit an empty part without filename
+            if img_file.filename == '':
+                raise Exception("No file selected!")
+            if len(img_file.filename) >= 50:
+                raise Exception("File name too long")
+
+            if img_file and allowed_file(img_file.filename):
+
+
+                #===================================================#
+                #======Till this step the file is good to process===#
+                # ===================================================#
+
+                # img_bytes = img_file.read()
+                store_file('temp_image.jpg', img_file)
+                match_result, match_output = compare_faces('temp_image.jpg')
+                temp_image_path = create_presigned_url_expanded('temp_image.jpg')
+                error_msg = None
+                info_msg = None
+                if match_result == False:
+                    info_msg = match_output
+                    return render_template("process_image.html", uploadImagePath= temp_image_path, match_result=str(match_output),info_msg=info_msg,error_msg=error_msg)
+                else:
+                    info_msg = "Match succeed, result as follows:"
+                    return render_template("process_image.html", uploadImagePath= temp_image_path, match_result=str(match_output),info_msg=info_msg,error_msg=error_msg)
+
+            else:
+                raise Exception("Not a Correct File Type!")
+    except Exception as ex:
+        print("problem is:", str(ex))
+        return render_template("process_image.html", error_msg=str(ex))
 
 
 #after user click the upload button
@@ -249,3 +299,4 @@ def file_management():
 
     else:
         return redirect(url_for('user_login'))
+

@@ -52,8 +52,8 @@
 					<ul>
 						<li><a href="/"><span class="icon fa-home"></span></a></li>
                         <li><a href="/file_management"><span class="icon fa-photo"></span></a></li>
-						<li><a href="/upload_management" class="active"><span class="icon fa-upload"></span></a></li>
-                        <li><a href="/process_image"><span class="icon fa-user"></span></a></li>
+						<li><a href="/upload_management"><span class="icon fa-upload"></span></a></li>
+                        <li><a href="/process_image" class="active"><span class="icon fa-user"></span></a></li>
 					</ul>
 				</nav>
 
@@ -63,7 +63,7 @@
 					<!-- Header -->
 						<header id="header" >
 							<div align="left" >
-                                <h2>Upload New Photo</h2>
+                                <h2>Upload New Photo For Processing </h2>
                             </div>
                             <hr/>
 						</header>
@@ -75,7 +75,7 @@
                             <h4>The Max size is 5MB </h4>
                             <h3 class="error" >{{error_msg if error_msg != None}}</h3>
                             <!-- Trigger/Open The Modal -->
-                            <button id="myBtn">Upload New Photo</button>
+                            <button id="myBtn">Upload New Photo for Processing</button>
 
                             <!-- The Modal -->
                             <div id="myModal" class="modal">
@@ -83,13 +83,10 @@
                               <!-- Modal content -->
                               <div class="modal-content">
                                 <span class="close">&times;</span>
-                                    <form method=post enctype=multipart/form-data action="/upload">
+                                    <form method=post enctype=multipart/form-data action="/which_face">
                                         Please upload the file below:<br/>
-                                      <input id="upload_file" type=file name=file>
-
-                                        <p>Person Name Tag:</p>
-                                        <input class = "extra" name='nameTag' type='text' value=''>
-                                      <input id="upload_file_btn" type=submit value="Upload Photo">
+                                      <input id="upload_file" type=file name=img>
+                                      <input id="upload_file_btn" type=submit value="Upload and Process">
                                     </form>
                               </div>
 
@@ -105,8 +102,8 @@
                             <div class="myImg">
                                 <img class="show" src="{{ uploadImagePath }}" alt= "{{ fileName }}" style="width:100%">
                             </div>
-                            <h2>Photo Label==>:</h2>
-                            <h2>{{ person_name }}</h2>
+                            <h2>Processed Result==>:</h2>
+                            <h2>{{ match_result }}</h2>
 
                         </div>
 
